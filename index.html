@@ -449,6 +449,11 @@
       });
 
       startTimer();
+
+      // Tap/click slide to advance
+      document.querySelector('.reveal .slides').addEventListener('click', () => {
+        Reveal.next();
+      });
     </script>
   </body>
 </html>
