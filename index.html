@@ -122,11 +122,9 @@
 
       .reveal .slides section {
         position: fixed !important;
-        top: calc(var(--slide-ref-height, 60px) + 16px) !important;
         left: 16px !important;
         right: 16px !important;
         width: calc(100% - 32px) !important;
-        height: calc(100vh - var(--slide-ref-height, 60px) - var(--toolbar-height, 60px) - 32px) !important;
         transform: none !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
@@ -135,6 +133,17 @@
         text-align: left !important;
         box-sizing: border-box !important;
         display: none !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+      }
+
+      .reveal .slides section ul {
+        padding-left: 1.2em !important;
+        margin: 0 !important;
+      }
+
+      .reveal .slides section li {
+        margin-bottom: 0.3em !important;
       }
 
       .reveal .slides section.present {
@@ -323,6 +332,7 @@
         transition: 'none',
         slideNumber: false,
         center: false,
+        disableLayout: true,
         plugins: [RevealHighlight],
       });
 
@@ -331,14 +341,30 @@
       const slideRefHeader = document.getElementById('slide-ref-header');
 
       const toolbar = document.querySelector('.toolbar');
-      function setToolbarHeight() {
-        document.documentElement.style.setProperty(
-          '--toolbar-height',
-          toolbar.offsetHeight + 'px'
-        );
+      const revealEl = document.querySelector('.reveal');
+      const slidesEl = document.querySelector('.reveal .slides');
+      const allSections = document.querySelectorAll('.reveal .slides section');
+
+      function layoutSlides() {
+        // Kill Reveal's inline transforms so position:fixed works relative to viewport
+        revealEl.style.setProperty('transform', 'none', 'important');
+        slidesEl.style.setProperty('transform', 'none', 'important');
+
+        const headerBottom = slideRefHeader.getBoundingClientRect().bottom;
+        const toolbarTop = toolbar.getBoundingClientRect().top;
+        const top = headerBottom + 16;
+        const height = toolbarTop - headerBottom - 32;
+
+        allSections.forEach(s => {
+          s.style.setProperty('transform', 'none', 'important');
+          s.style.setProperty('top', top + 'px', 'important');
+          s.style.setProperty('height', Math.max(0, height) + 'px', 'important');
+        });
       }
-      setToolbarHeight();
-      new ResizeObserver(setToolbarHeight).observe(toolbar);
+
+      new ResizeObserver(layoutSlides).observe(toolbar);
+      new ResizeObserver(layoutSlides).observe(slideRefHeader);
+      window.addEventListener('resize', layoutSlides);
 
       function updateSlideRef(slide) {
         const ref = slide && slide.querySelector('.slide-ref');
@@ -346,30 +372,25 @@
           const [slideNum, ...titleParts] = ref.textContent.split('—');
           const title = titleParts.join('—').trim();
           slideRefHeader.innerHTML =
-            '<div class="slide-ref-num">' +
-            slideNum.trim() +
-            '</div>' +
-            '<div class="slide-ref-title">' +
-            title +
-            '</div>';
+            '<div class="slide-ref-num">' + slideNum.trim() + '</div>' +
+            '<div class="slide-ref-title">' + title + '</div>';
         } else {
           slideRefHeader.innerHTML = '';
         }
-        document.documentElement.style.setProperty(
-          '--slide-ref-height',
-          slideRefHeader.offsetHeight + 'px'
-        );
+        layoutSlides();
       }
 
       Reveal.on('ready', (e) => {
         totalEl.textContent = Reveal.getTotalSlides();
         currentEl.textContent = e.indexh + 1;
         updateSlideRef(e.currentSlide);
+        requestAnimationFrame(layoutSlides);
       });
 
       Reveal.on('slidechanged', (e) => {
         currentEl.textContent = e.indexh + 1;
         updateSlideRef(e.currentSlide);
+        requestAnimationFrame(layoutSlides);
       });
 
       // ─── Timer config ───────────────────────────────────────────
