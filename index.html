@@ -154,155 +154,222 @@
     <div class="reveal">
       <div class="slides">
         <!-- NOTES_START -->
-        <section data-index="1"><div class="slide-ref">1 / 53 &mdash; Dotfiles&nbsp; (and other&hellip;</div><ul>
-              <li>intro</li>
-              <li>burn out</li>
-              <li>finding joy in having control over env</li>
-              <li>just need a place to vent lol</li>
-            </ul></section>
-        <section data-index="2"><div class="slide-ref">2 / 53 &mdash; A little about&hellip;</div><ul>
-              <li>freelance something</li>
-              <li>learned c++ on notepad++</li>
-              <li>js since 2013</li>
-              <li>ts since 2020</li>
-              <li
-                >sublime text user, atom user (rip), -> vscode "power user"</li
-              >
-              ^ could merit it's own slide
-            </ul></section>
-        <section data-index="3"><div class="slide-ref">3 / 53 &mdash; How to use&hellip;</div><ul>
-              <li>I may change that rule for time if needed</li>
-              <li>
-                A little about my journey:
-                <ul>
-                  <li> 9ish years of professional dev. 12ish total </li>
-                  <li>started with notepad++ -> sublime -> vscode</li>
-                  <li>been a vscode andy for most of my carreer</li>
-                  <li>been primary js my entire career</li>
-                </ul>
-              </li>
-            </ul></section>
-        <section data-index="4"><div class="slide-ref">5 / 53 &mdash; What are .&hellip;</div><ul>
-              <li>In general:</li>
-              <li>
-                In specific: they are personal development environment configs
-              </li>
-            </ul></section>
-        <section data-index="5"><div class="slide-ref">6 / 53 &mdash; [ dotfiles example&hellip;</div><ul>
-              <li>notable examples:</li>
-              <li>.zshrc</li>
-              <li>.opencode</li>
-              <li>show simple example</li>
-            </ul></section>
-        <section data-index="6"><div class="slide-ref">7 / 53 &mdash; Why are dotfiles?&hellip;</div><ul>
-              <li>more obvious</li>
-              <li>Bring your environment with you</li>
-              <li>Keep your environment organized</li>
-              <li>
-                a lot of poeple's dot files look almost like a copy of their
-                home dir with just their config files.
-              </li>
-              <li>
-                mine may look slightly different, but really everyone's dot
-                files look different they are like snowflakes and it is
-                intersting seeing what people prioritize
-              </li>
-              <li>less obvious</li>
-            </ul></section>
-        <section data-index="7"><div class="slide-ref">11 / 53 &mdash; terminal doesn't really&hellip;</div><ul>
-              <li>doesn't matter when one you use</li>
-              <li>
-                i like wezterm on mac because it is fast and plays well with
-                emojis
-              </li>
-              <li>
-                on omarchy i use ghostty because it works well and it came with
-                it and i'm lazy
-              </li>
-            </ul></section>
-        <section data-index="8"><div class="slide-ref">12 / 53 &mdash; What's in a&nbsp;&hellip;</div><ul>
-              <li>the rug that ties the room together</li>
-              <li>ask: who knows what shell they use (expect everyone)</li>
-              <li>zsh users?</li>
-              <li>zsh users who use oh my zsh?</li>
-              <li>curiosity: users of other shells</li>
-            </ul></section>
-        <section data-index="9"><div class="slide-ref">13 / 53 &mdash; Oh my! Zsh!&hellip;</div><ul>
-              <li>I'm goin gto be focusing on zsh for this presentation</li>
-            </ul></section>
-        <section data-index="10"><div class="slide-ref">15 / 53 &mdash; Zsh alternatives: bash&hellip;</div><ul>
-              <li>
-                bash was Created in 1989 by Brian Fox for the GNU Project,[7] it
-                is designed as a completely free software alternative for the
-                Bourne shell, sh, and other proprietary Unix shells
-              </li>
-              <li>borne shell: 1973</li>
-              <li>thomson shell: 1970</li>
-              <li>zsh is infact: a combo of KornShell ksh and tenex c shell</li>
-              <li>
-                bourne shell The Bourne shell (sh) is a foundational Unix
-                command-line interpreter and scripting language developed by
-                Stephen Bourne at Bell Labs in 1979.
-              </li>
-              <li>fish shell: 2005</li>
-              <li>nu shell: 2019</li>
-              <li>you don't have to chose one</li>
-            </ul></section>
-        <section data-index="11"><div class="slide-ref">19 / 53 &mdash; G NU's&nbsp; N&hellip;</div><ul>
-              <li>GNU's not Unix</li>
-              <li>fill in</li>
-              <li>"new library" came out in ____</li>
-              <li>why use gnu stow?</li>
-              <li>share configs across computers</li>
-              <li>save hours of time and lookups by reusing configs</li>
-            </ul></section>
-        <section data-index="12"><div class="slide-ref">20 / 53 &mdash; [ gnu stow&hellip;</div><ul>
-              <li>show stowrc</li>
-              <li>show stowing another file</li>
-              <li>note only needing to stow onceish when adding files</li>
-            </ul></section>
-        <section data-index="13"><div class="slide-ref">21 / 53 &mdash; Aliases standard "global"&hellip;</div><ul>
-              <li>what they are</li>
-              <li>why they are cool</li>
-              <li>example</li>
-            </ul></section>
-        <section data-index="14"><div class="slide-ref">22 / 53 &mdash; Functions&hellip;</div><ul>
-              <li>what they are</li>
-              <li>parameters</li>
-              <li>all the power of bash scripts!</li>
-            </ul></section>
-        <section data-index="15"><div class="slide-ref">25 / 53 &mdash; [ functions example&hellip;</div><ul>
-              <li>md</li>
-              <li>options:</li>
-              <li>open_github</li>
-              <li>push_current_branch</li>
-              <li>scripts</li>
-              <li>jobbies</li>
-              <li>new function?</li>
-            </ul></section>
-        <section data-index="16"><div class="slide-ref">29 / 53 &mdash; I use vim&hellip;</div><ul>
-              <li>great tings about vim</li>
-              <li>complete ----------</li>
-              <li>vim motions</li>
-              <li>faster navigation</li>
-              <li>easy macros</li>
-              <li>maximum developer vibe</li>
-              <li>https://en.wikipedia.org/wiki/Vi_(text_editor)</li>
-              <li>https://en.wikipedia.org/wiki/Vim_(text_editor)</li>
-              <li>Ironically it vi</li>
-              <li>does infact stand for "visual" text editor</li>
-            </ul></section>
-        <section data-index="17"><div class="slide-ref">31 / 53 &mdash; Okay But Why&hellip;</div><ul>
-              <li></li>
-              <li></li>
-            </ul></section>
-        <section data-index="18"><div class="slide-ref">40 / 53 &mdash; LazyVim Alternatives: NvChad&hellip;</div><ul>
-              <li>LazyVim release date ____</li>
-            </ul></section>
-        <section data-index="19"><div class="slide-ref">42 / 53 &mdash; Dotfiles in the&hellip;</div><ul>
-              <li>it's awesome.</li>
-              <li>use ai to generate scripts -> under stand the scripts</li>
-            </ul></section>
+        <section data-index="1">
+          <div class="slide-ref">
+            1 / 53 &mdash; Dotfiles&nbsp; (and other&hellip;
+          </div>
+          <ul>
+            <li>intro</li>
+            <li>burn out</li>
+            <li>finding joy in having control over env</li>
+            <li>just need a place to vent lol</li>
+          </ul>
+        </section>
+        <section data-index="2">
+          <div class="slide-ref">2 / 53 &mdash; A little about&hellip;</div>
+          <ul>
+            <li>freelance something</li>
+            <li>learned c++ on notepad++</li>
+            <li>js since 2013</li>
+            <li>ts since 2020</li>
+            <li>sublime text user, atom user (rip), -> vscode "power user"</li>
+            ^ could merit it's own slide
+          </ul>
+        </section>
+        <section data-index="3">
+          <div class="slide-ref">3 / 53 &mdash; How to use&hellip;</div>
+          <ul>
+            <li>I may change that rule for time if needed</li>
+            <li>
+              A little about my journey:
+              <ul>
+                <li>9ish years of professional dev. 12ish total</li>
+                <li>started with notepad++ -> sublime -> vscode</li>
+                <li>been a vscode andy for most of my carreer</li>
+                <li>been primary js my entire career</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-index="4">
+          <div class="slide-ref">5 / 53 &mdash; What are .&hellip;</div>
+          <ul>
+            <li>In general:</li>
+            <li>
+              In specific: they are personal development environment configs
+            </li>
+          </ul>
+        </section>
+        <section data-index="5">
+          <div class="slide-ref">6 / 53 &mdash; [ dotfiles example&hellip;</div>
+          <ul>
+            <li>notable examples:</li>
+            <li>.zshrc</li>
+            <li>.opencode</li>
+            <li>show simple example</li>
+          </ul>
+        </section>
+        <section data-index="6">
+          <div class="slide-ref">7 / 53 &mdash; Why are dotfiles?&hellip;</div>
+          <ul>
+            <li>more obvious</li>
+            <li>Bring your environment with you</li>
+            <li>Keep your environment organized</li>
+            <li>
+              a lot of poeple's dot files look almost like a copy of their home
+              dir with just their config files.
+            </li>
+            <li>
+              mine may look slightly different, but really everyone's dot files
+              look different they are like snowflakes and it is intersting
+              seeing what people prioritize
+            </li>
+            <li>less obvious</li>
+          </ul>
+        </section>
+        <section data-index="7">
+          <div class="slide-ref">
+            11 / 53 &mdash; terminal doesn't really&hellip;
+          </div>
+          <ul>
+            <li>doesn't matter when one you use</li>
+            <li>
+              i like wezterm on mac because it is fast and plays well with
+              emojis
+            </li>
+            <li>
+              on omarchy i use ghostty because it works well and it came with it
+              and i'm lazy
+            </li>
+          </ul>
+        </section>
+        <section data-index="8">
+          <div class="slide-ref">12 / 53 &mdash; What's in a&nbsp;&hellip;</div>
+          <ul>
+            <li>the rug that ties the room together</li>
+            <li>ask: who knows what shell they use (expect everyone)</li>
+            <li>zsh users?</li>
+            <li>zsh users who use oh my zsh?</li>
+            <li>curiosity: users of other shells</li>
+          </ul>
+        </section>
+        <section data-index="9">
+          <div class="slide-ref">13 / 53 &mdash; Oh my! Zsh!&hellip;</div>
+          <ul>
+            <li>I'm goin gto be focusing on zsh for this presentation</li>
+          </ul>
+        </section>
+        <section data-index="10">
+          <div class="slide-ref">
+            15 / 53 &mdash; Zsh alternatives: bash&hellip;
+          </div>
+          <ul>
+            <li>
+              bash was Created in 1989 by Brian Fox for the GNU Project,[7] it
+              is designed as a completely free software alternative for the
+              Bourne shell, sh, and other proprietary Unix shells
+            </li>
+            <li>borne shell: 1973</li>
+            <li>thomson shell: 1970</li>
+            <li>zsh is infact: a combo of KornShell ksh and tenex c shell</li>
+            <li>
+              bourne shell The Bourne shell (sh) is a foundational Unix
+              command-line interpreter and scripting language developed by
+              Stephen Bourne at Bell Labs in 1979.
+            </li>
+            <li>fish shell: 2005</li>
+            <li>nu shell: 2019</li>
+            <li>you don't have to chose one</li>
+          </ul>
+        </section>
+        <section data-index="11">
+          <div class="slide-ref">19 / 53 &mdash; G NU's&nbsp; N&hellip;</div>
+          <ul>
+            <li>GNU's not Unix</li>
+            <li>fill in</li>
+            <li>"new library" came out in ____</li>
+            <li>why use gnu stow?</li>
+            <li>share configs across computers</li>
+            <li>save hours of time and lookups by reusing configs</li>
+          </ul>
+        </section>
+        <section data-index="12">
+          <div class="slide-ref">20 / 53 &mdash; [ gnu stow&hellip;</div>
+          <ul>
+            <li>show stowrc</li>
+            <li>show stowing another file</li>
+            <li>note only needing to stow onceish when adding files</li>
+          </ul>
+        </section>
+        <section data-index="13">
+          <div class="slide-ref">
+            21 / 53 &mdash; Aliases standard "global"&hellip;
+          </div>
+          <ul>
+            <li>what they are</li>
+            <li>why they are cool</li>
+            <li>example</li>
+          </ul>
+        </section>
+        <section data-index="14">
+          <div class="slide-ref">22 / 53 &mdash; Functions&hellip;</div>
+          <ul>
+            <li>what they are</li>
+            <li>parameters</li>
+            <li>all the power of bash scripts!</li>
+          </ul>
+        </section>
+        <section data-index="15">
+          <div class="slide-ref">
+            25 / 53 &mdash; [ functions example&hellip;
+          </div>
+          <ul>
+            <li>md</li>
+            <li>options:</li>
+            <li>open_github</li>
+            <li>push_current_branch</li>
+            <li>scripts</li>
+            <li>jobbies</li>
+            <li>new function?</li>
+          </ul>
+        </section>
+        <section data-index="16">
+          <div class="slide-ref">29 / 53 &mdash; I use vim&hellip;</div>
+          <ul>
+            <li>great tings about vim</li>
+            <li>complete ----------</li>
+            <li>vim motions</li>
+            <li>faster navigation</li>
+            <li>easy macros</li>
+            <li>maximum developer vibe</li>
+            <li>https://en.wikipedia.org/wiki/Vi_(text_editor)</li>
+            <li>https://en.wikipedia.org/wiki/Vim_(text_editor)</li>
+            <li>Ironically it vi</li>
+            <li>does infact stand for "visual" text editor</li>
+          </ul>
+        </section>
+        <section data-index="17">
+          <div class="slide-ref">31 / 53 &mdash; Okay But Why&hellip;</div>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </section>
+        <section data-index="18">
+          <div class="slide-ref">
+            40 / 53 &mdash; LazyVim Alternatives: NvChad&hellip;
+          </div>
+          <ul>
+            <li>LazyVim release date ____</li>
+          </ul>
+        </section>
+        <section data-index="19">
+          <div class="slide-ref">42 / 53 &mdash; Dotfiles in the&hellip;</div>
+          <ul>
+            <li>it's awesome.</li>
+            <li>use ai to generate scripts -> under stand the scripts</li>
+          </ul>
+        </section>
         <!-- NOTES_END -->
       </div>
     </div>
