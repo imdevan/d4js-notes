@@ -93,8 +93,7 @@
 
       .reveal .slides section {
         overflow-y: auto;
-        max-height: 100%;
-        padding-bottom: 6rem;
+        max-height: calc(100vh - var(--toolbar-height, 80px));
       }
     </style>
   </head>
@@ -284,6 +283,13 @@
 
       const currentEl = document.getElementById('current');
       const totalEl = document.getElementById('total');
+
+      const toolbar = document.querySelector('.toolbar');
+      function setToolbarHeight() {
+        document.documentElement.style.setProperty('--toolbar-height', toolbar.offsetHeight + 'px');
+      }
+      setToolbarHeight();
+      new ResizeObserver(setToolbarHeight).observe(toolbar);
 
       Reveal.on('ready', (e) => {
         totalEl.textContent = Reveal.getTotalSlides();
