@@ -39,6 +39,8 @@
         backdrop-filter: blur(4px);
         z-index: 1000;
         pointer-events: none;
+        gap: 12px;
+        flex-wrap: wrap;
       }
 
       .toolbar > * {
@@ -46,23 +48,27 @@
       }
 
       .slide-number {
-        font-size: 2rem;
+        font-size: 1.4rem;
         color: #888;
         font-family: monospace;
+        white-space: nowrap;
       }
 
       .stopwatch {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
         font-family: sans-serif;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
 
       #timer {
         font-family: monospace;
-        font-size: 2rem;
+        font-size: 3rem;
         color: #bbb;
+        white-space: nowrap;
       }
 
       .stopwatch-buttons {
@@ -74,26 +80,54 @@
         background: #2a2a2a;
         color: #bbb;
         border: 1px solid #3a3a3a;
-        padding: 3px 10px;
+        padding: 6px 14px;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
+        touch-action: manipulation;
       }
 
       .stopwatch button:hover {
         background: #383838;
       }
 
-      .slide-ref {
+      @media (max-width: 480px) {
+        .slide-ref-header {
+          font-size: 1.1rem;
+          padding: 6px 12px;
+        }
+
+        .slide-number {
+          font-size: 1.1rem;
+        }
+
+        #timer {
+          font-size: 1.1rem;
+        }
+      }
+
+      .slide-ref-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         font-size: 1.4rem;
         color: #666;
         font-family: monospace;
-        margin-bottom: 1rem;
+        background: rgba(17, 17, 17, 0.95);
+        padding: 8px 16px;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+      }
+
+      .slide-ref {
+        display: none;
       }
 
       .reveal .slides section {
         overflow-y: auto;
-        max-height: calc(100vh - var(--toolbar-height, 80px));
+        max-height: calc(100vh - var(--toolbar-height, 80px) - var(--slide-ref-height, 36px));
+        padding-top: 8px;
       }
     </style>
   </head>
@@ -254,6 +288,8 @@
       </div>
     </div>
 
+    <div class="slide-ref-header" id="slide-ref-header"></div>
+
     <div class="toolbar">
       <span class="slide-number">
         <span id="current">1</span>
@@ -261,7 +297,7 @@
         <span id="total">—</span>
       </span>
       <div class="stopwatch">
-        <span id="timer">00:00:00</span>
+        <span id="timer">00m</span>
         <div class="stopwatch-buttons">
           <button id="toggle-btn">Start</button>
           <button id="reset-btn">Reset</button>
@@ -283,6 +319,7 @@
 
       const currentEl = document.getElementById('current');
       const totalEl = document.getElementById('total');
+      const slideRefHeader = document.getElementById('slide-ref-header');
 
       const toolbar = document.querySelector('.toolbar');
       function setToolbarHeight() {
@@ -291,13 +328,21 @@
       setToolbarHeight();
       new ResizeObserver(setToolbarHeight).observe(toolbar);
 
+      function updateSlideRef(slide) {
+        const ref = slide && slide.querySelector('.slide-ref');
+        slideRefHeader.innerHTML = ref ? ref.innerHTML : '';
+        document.documentElement.style.setProperty('--slide-ref-height', slideRefHeader.offsetHeight + 'px');
+      }
+
       Reveal.on('ready', (e) => {
         totalEl.textContent = Reveal.getTotalSlides();
         currentEl.textContent = e.indexh + 1;
+        updateSlideRef(e.currentSlide);
       });
 
       Reveal.on('slidechanged', (e) => {
         currentEl.textContent = e.indexh + 1;
+        updateSlideRef(e.currentSlide);
       });
 
       // Stopwatch
@@ -308,12 +353,8 @@
       const resetBtn = document.getElementById('reset-btn');
 
       function format(ms) {
-        const s = Math.floor(ms / 1000);
-        const m = Math.floor(s / 60);
-        const h = Math.floor(m / 60);
-        return [h, m % 60, s % 60]
-          .map((n) => String(n).padStart(2, '0'))
-          .join(':');
+        const m = Math.floor(ms / 60000);
+        return String(m).padStart(2, '0') + 'm';
       }
 
       toggleBtn.addEventListener('click', () => {
