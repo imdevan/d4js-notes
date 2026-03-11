@@ -54,41 +54,20 @@
         white-space: nowrap;
       }
 
-      .stopwatch {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 16px;
-        font-family: sans-serif;
-        flex-wrap: wrap;
-        justify-content: space-between;
+      .timer-seconds {
+        font-size: 0.5em;
+        opacity: 0.25;
+        margin-left: 4px;
       }
 
       #timer {
         font-family: monospace;
-        font-size: 3rem;
+        font-size: 32px !important;
         color: #bbb;
         white-space: nowrap;
-      }
-
-      .stopwatch-buttons {
-        display: flex;
-        gap: 6px;
-      }
-
-      .stopwatch button {
-        background: #2a2a2a;
-        color: #bbb;
-        border: 1px solid #3a3a3a;
-        padding: 6px 14px;
-        border-radius: 4px;
         cursor: pointer;
-        font-size: 14px;
         touch-action: manipulation;
-      }
-
-      .stopwatch button:hover {
-        background: #383838;
+        user-select: none;
       }
 
       @media (max-width: 480px) {
@@ -126,7 +105,9 @@
 
       .reveal .slides section {
         overflow-y: auto;
-        max-height: calc(100vh - var(--toolbar-height, 80px) - var(--slide-ref-height, 36px));
+        max-height: calc(
+          100vh - var(--toolbar-height, 80px) - var(--slide-ref-height, 36px)
+        );
         padding-top: 8px;
       }
     </style>
@@ -288,7 +269,10 @@
       </div>
     </div>
 
-    <div class="slide-ref-header" id="slide-ref-header"></div>
+    <div
+      class="slide-ref-header"
+      id="slide-ref-header"
+    ></div>
 
     <div class="toolbar">
       <span class="slide-number">
@@ -296,13 +280,7 @@
         /
         <span id="total">—</span>
       </span>
-      <div class="stopwatch">
-        <span id="timer">00m</span>
-        <div class="stopwatch-buttons">
-          <button id="toggle-btn">Start</button>
-          <button id="reset-btn">Reset</button>
-        </div>
-      </div>
+      <span id="timer">00m</span>
     </div>
 
     <script src="dist/reveal.js"></script>
@@ -323,7 +301,10 @@
 
       const toolbar = document.querySelector('.toolbar');
       function setToolbarHeight() {
-        document.documentElement.style.setProperty('--toolbar-height', toolbar.offsetHeight + 'px');
+        document.documentElement.style.setProperty(
+          '--toolbar-height',
+          toolbar.offsetHeight + 'px'
+        );
       }
       setToolbarHeight();
       new ResizeObserver(setToolbarHeight).observe(toolbar);
@@ -331,7 +312,10 @@
       function updateSlideRef(slide) {
         const ref = slide && slide.querySelector('.slide-ref');
         slideRefHeader.innerHTML = ref ? ref.innerHTML : '';
-        document.documentElement.style.setProperty('--slide-ref-height', slideRefHeader.offsetHeight + 'px');
+        document.documentElement.style.setProperty(
+          '--slide-ref-height',
+          slideRefHeader.offsetHeight + 'px'
+        );
       }
 
       Reveal.on('ready', (e) => {
@@ -345,40 +329,62 @@
         updateSlideRef(e.currentSlide);
       });
 
+      // ─── Timer config ───────────────────────────────────────────
+      const SHOW_SECONDS = true;
+      // ────────────────────────────────────────────────────────────
+
       // Stopwatch
       let elapsed = 0;
       let interval = null;
       const timerEl = document.getElementById('timer');
-      const toggleBtn = document.getElementById('toggle-btn');
-      const resetBtn = document.getElementById('reset-btn');
 
       function format(ms) {
         const m = Math.floor(ms / 60000);
-        return String(m).padStart(2, '0') + 'm';
+        const s = Math.floor((ms % 60000) / 1000);
+        const min = String(m).padStart(2, '0') + 'm';
+        if (!SHOW_SECONDS) return min;
+        return (
+          min +
+          '<span class="timer-seconds">' +
+          String(s).padStart(2, '0') +
+          's</span>'
+        );
       }
 
-      toggleBtn.addEventListener('click', () => {
+      function startTimer() {
+        const start = Date.now() - elapsed;
+        timerEl.innerHTML = format(elapsed);
+        interval = setInterval(() => {
+          elapsed = Date.now() - start;
+          timerEl.innerHTML = format(elapsed);
+        }, 1000);
+      }
+
+      function pauseTimer() {
+        clearInterval(interval);
+        interval = null;
+      }
+
+      // Single click: pause/resume
+      let lastTap = 0;
+      timerEl.addEventListener('click', (e) => {
+        const now = Date.now();
+        if (now - lastTap < 350) {
+          // Double tap: reload
+          location.reload();
+          return;
+        }
+        lastTap = now;
         if (interval) {
-          clearInterval(interval);
-          interval = null;
-          toggleBtn.textContent = 'Start';
+          pauseTimer();
+          timerEl.style.opacity = '0.4';
         } else {
-          const start = Date.now() - elapsed;
-          interval = setInterval(() => {
-            elapsed = Date.now() - start;
-            timerEl.textContent = format(elapsed);
-          }, 100);
-          toggleBtn.textContent = 'Stop';
+          startTimer();
+          timerEl.style.opacity = '1';
         }
       });
 
-      resetBtn.addEventListener('click', () => {
-        clearInterval(interval);
-        interval = null;
-        elapsed = 0;
-        timerEl.textContent = '00:00:00';
-        toggleBtn.textContent = 'Start';
-      });
+      startTimer();
     </script>
   </body>
 </html>
